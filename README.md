@@ -1,46 +1,59 @@
-# Vue3-vite-ts
-
-npm init vite@latest
-cd vite-project
-npm install 
-npm run dev
-
-
-App.vue
 <template>
-  <div>{{ message1 ? "message1存在值" : "message1没有值" }}</div>
+  <div>三元表达式:{{ message1 ? "message1存在值" : "message1没有值" }}</div>
   <div v-text="message1"></div>
-  <div>{{ message2 + 1 }}</div>
-  <div>{{ message3.split(",") }}</div>
-  <div>{{ message3.split(",").map((v) => `map方法${v}`) }}</div>
+  <div>运算模板值:{{ message2 + 1 }}</div>
+  <div>split方法{{ message3.split(",") }}</div>
+  <div>map方法{{ message3.split(",").map((v) => `map方法${v}`) }}</div>
+
   <div v-html="message4"></div>
+  <br />
+  <div>v-if与v-show的区别</div>
   <!-- v-if注释掉节点 -->
   <div v-if="flag" v-text="message1"></div>
   <!-- v-show操作css display -->
   <div v-show="flag" v-text="message1"></div>
+
+  <br />
   <!-- v-else-if -->
   <div>
+    <div>v-else用法</div>
     <div v-if="flag2 == 'A'">A</div>
     <div v-else-if="flag2 == 'B'">B</div>
     <div v-else-if="flag2 == 'C'">C</div>
     <div v-else="flag2 == 'D'">D</div>
   </div>
+  <br />
 
-  <div>name:{{ jsonData.name }}</div>
-  <div>age:{{ jsonData.age }}</div>
-
+  <br />
+  <div>点击事件</div>
   <!-- v-on：click 与 @ -->
-  <div><button v-on:click="clickTap">123</button></div>
-  <div><button @click="clickTap">123</button></div>
+  <div><button v-on:click="clickTap">v-on:click触发点击</button></div>
+  <div><button @click="clickTap">@click触发点击</button></div>
+  <br />
 
   <!-- 点击父级与子集关系 -->
   <div @click="clickParent">
-    <button @click="clickTap">点击触发父级与子集</button>
+    <button @click="clickTap">点击触发父级与子级</button>
   </div>
   <!-- 只触发子集事件 -->
   <div @click="clickParent">
-    <button @click.stop="clickTap">使用.stop只触发子集</button>
+    <button @click.stop="clickTap">使用.stop只触发子级</button>
   </div>
+  <br />
+  <form>
+    <button>提交刷新</button>
+  </form>
+  <form>
+    <button @click.prevent="clickTap">提交 使用click.prevent不刷新1</button>
+  </form>
+  <br />
+  <div v-bind:style="style">style效果1 v-bind绑定当前变量等于目标</div>
+  <div :style="style">style效果2 使用 ":"简写v-vind绑定当前变量等于目标</div>
+  <div :class="cls">样式控制</div>
+
+  <br />
+  <div>v-for迭代对象</div>
+  <div v-for="item in arr">{{ item }}</div>
 </template>
 
 <script setup lang="ts">
@@ -64,15 +77,35 @@ const clickTap = () => {
 const clickParent = () => {
   console.log("点击了父级");
 };
+
+type Style = {
+  color: string;
+  height: string;
+};
+const style: Style = { color: "blue", height: "50px" };
+
+type Cls = {
+  a: boolean;
+  b: boolean;
+};
+
+const cls: Cls = {
+  a: true,
+  b: true,
+};
+
+const arr: Array<number> = [1, 2, 3, 4, 5];
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.a {
+  color: red;
+}
+.b {
+  border: 2px solid aquamarine;
+}
+
+div {
+  margin: 20px;
 }
 </style>
