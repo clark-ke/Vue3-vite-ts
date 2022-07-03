@@ -54,10 +54,25 @@
   <br />
   <div>v-for迭代对象</div>
   <div v-for="item in arr">{{ item }}</div>
+
+  <div>v-for嵌套迭代对象</div>
+  <div :key:any="item" v-for="item in jsonData">
+    {{ item }}
+    <div :childKey:any="keyItem" v-for="keyItem in item">{{ keyItem }}</div>
+    <div :childKey:any="keyItem" v-for="keyItem in item">
+      {{ keyItem.name }}-{{ keyItem.age }}
+    </div>
+  </div>
+  <br />
+  <div>v-model双向绑定</div>
+  <div>使用vue.ref把属性变成响应式</div>
+  <input v-model="message5" type="text" />
+  <div>{{ message5 }}</div>
 </template>
 
 <script setup lang="ts">
 import { assert } from "@vue/compiler-core";
+import { ref } from "vue";
 
 import * as jsonData1 from "./assets/test.json";
 const message1: string = "v-text";
@@ -95,6 +110,8 @@ const cls: Cls = {
 };
 
 const arr: Array<number> = [1, 2, 3, 4, 5];
+
+const message5 = ref("test");
 </script>
 
 <style>
