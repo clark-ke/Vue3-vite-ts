@@ -1,3 +1,5 @@
+//npm init vite@latest
+
 <template>
   <div>三元表达式:{{ message1 ? "message1存在值" : "message1没有值" }}</div>
   <div v-text="message1"></div>
